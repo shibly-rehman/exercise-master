@@ -17,6 +17,9 @@ import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 
 object NetworkProvider {
+
+    val api: ApiService = provideRestClient().createRetrofitAdapter().create(ApiService::class.java)
+
     fun provideRestClient() =
         RestClient(RestClientConfig(
             provideGsonConverterFactory(),
