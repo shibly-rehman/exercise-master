@@ -26,4 +26,7 @@ class FeatureViewModel : ViewModel() {
             data.removeSource(source)
         }
     }
+
+    /** Observe changes to features data */
+    fun observeFeatures(): LiveData<List<FeatureModel>> = data
 }

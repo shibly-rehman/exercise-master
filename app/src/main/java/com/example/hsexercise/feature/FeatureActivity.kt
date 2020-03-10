@@ -1,6 +1,7 @@
 package com.example.hsexercise.feature
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hsexercise.R
 import com.example.hsexercise.common.BaseActivity
@@ -20,5 +21,11 @@ class FeatureActivity : BaseActivity<FeatureViewModel>() {
         list.adapter = adapter
         val layoutManager = LinearLayoutManager( this )
         list.layoutManager = layoutManager
+
+        // Observe changes to Feature data (Lifecycle aware)
+        viewModel.observeFeatures().observe(this, Observer {
+            adapter.updateData(if (it.isNullOrEmpty()) mutableListOf() else it.toMutableList())
+        })
+        viewModel.getFeatures()
     }
 }
