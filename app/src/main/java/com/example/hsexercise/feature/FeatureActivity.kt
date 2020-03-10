@@ -1,6 +1,8 @@
 package com.example.hsexercise.feature
 
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hsexercise.R
@@ -24,6 +26,7 @@ class FeatureActivity : BaseActivity<FeatureViewModel>() {
 
         // Observe changes to Feature data (Lifecycle aware)
         viewModel.observeFeatures().observe(this, Observer {
+            empty.visibility = if (it.isNullOrEmpty()) VISIBLE else GONE
             adapter.updateData(if (it.isNullOrEmpty()) mutableListOf() else it.toMutableList())
         })
         viewModel.getFeatures()
