@@ -65,14 +65,14 @@ class FeatureAdapter(ctx: Context) : RecyclerView.Adapter<FeatureAdapter.Rendere
 
             // load image
             glide
-                .load(feature.url)
+                .load(feature.download_url)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .fitCenter()
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.image_not_found)
                 .addListener( object : RequestListener<Drawable> {
                     override fun onLoadFailed( e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Log.d(TAG, "${feature.url} failed to load")
+                        Log.d(TAG, "${feature.download_url} failed to load")
                         return false
                     }
 
