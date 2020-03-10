@@ -36,7 +36,14 @@ object Repository {
             }
     }
 
-    fun getFeatures() : Flowable<List<FeatureModel>> = getFeaturesFromApi()
+    /** Get features from local database if available otherwise makes api call to retrieve them */
+    fun getFeatures(): Flowable<List<FeatureModel>> {
+        val localData = getFeaturesFromDb()
+        val remoteData = getFeaturesFromApi()
+        return localData.flatMap {
+            return@flatMap if (it.isEmpty()) remoteData else localData
+        }
+    }
 
     @SuppressLint("CheckResult")
     /** Store features in database */
